@@ -1,14 +1,13 @@
 Package: rapFigurer
-Title: What the Package Does (One Line, Title Case)
+Title: Figurmaler for Rapporteket
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "First",
            family = "Last",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: What license it uses
+           email = "lena.olsen@skde.no")
+Description: Verktøykasse for figurer til Rapporteket.
+License: GNU
 Encoding: UTF-8
 LazyData: true
 Suggests: 
