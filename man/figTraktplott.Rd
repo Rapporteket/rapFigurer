@@ -9,7 +9,7 @@ figTraktplott(sykehus = DataTraktplott$Sykehus,
   nevner = DataTraktplott$N, data = DataTraktplott,
   tittel = "Eksempeltittel", undertittel = "undertittel",
   punktetikett = "", xlab = "", ylab = "", midtlinje = 0.7,
-  maal = NULL)
+  maal = NA)
 }
 \arguments{
 \item{sykehus}{Vektor med sykehusnavn, sortert i ønsket rekkefølge}
@@ -20,6 +20,10 @@ figTraktplott(sykehus = DataTraktplott$Sykehus,
 
 \item{data}{datasettet (dataramme)}
 
+\item{tittel}{Tittel}
+
+\item{undertittel}{evt. undertittel}
+
 \item{punktetikett}{evt. kommentar ved hvert av punktene. Kommer til høyre i plottet}
 
 \item{xlab}{undertittel x-akse}
@@ -29,6 +33,9 @@ figTraktplott(sykehus = DataTraktplott$Sykehus,
 \item{midtlinje}{Legge midtlinja på ønsket verdi}
 
 \item{maal}{Mållinje..}
+}
+\value{
+Traktplott med andeler av gitt variabel for hvert sykehus
 }
 \description{
 For å få ønsket sortering lages variabelen Sykehus som en faktor
