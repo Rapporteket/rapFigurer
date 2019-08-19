@@ -33,7 +33,7 @@ FigFordeling <- function(AggVerdier, tittel='mangler tittel', hovedgrTxt='', sml
 
   if ((N$Hoved < 5) | (sum(N$Hoved+N$Rest)<11)){
     #-----------Figur---------------------------------------
-    FigTypUt <-figtype(outfile)  #FigTypUt <- figtype(outfile)
+    FigTypUt <- rapFigurer::figtype(outfile)  #FigTypUt <- figtype(outfile)
     farger <- FigTypUt$farger
     plot.new()
     title(tittel)	#, line=-6)
@@ -50,7 +50,7 @@ FigFordeling <- function(AggVerdier, tittel='mangler tittel', hovedgrTxt='', sml
 
     #Høyde må avhenge av antall grupper
     hoyde <- ifelse(length(AggVerdier$Hoved)>20, 3*800, 3*600)
-    FigTypUt <- figtype(outfile, height=hoyde, fargepalett=fargepalett)
+    FigTypUt <- rapFigurer::figtype(outfile, height=hoyde, fargepalett=fargepalett)
     #Tilpasse marger for å kunne skrive utvalgsteksten
     NutvTxt <- length(utvalgTxt)
     vmarg <- switch(retn, V=0.05, H=min(1,max(0, strwidth(grtxt, units='figure', cex=cexgr)*0.75)))
@@ -61,7 +61,7 @@ FigFordeling <- function(AggVerdier, tittel='mangler tittel', hovedgrTxt='', sml
     fargeHoved <- farger[1]
     fargeRest <- farger[3]
     graa <- c('#4D4D4D','#737373','#A6A6A6','#DADADA')  #Mørk til lys          																# Fire graatoner
-    antGr <- length(grtxt)
+    #antGr <- length(grtxt)
     cexleg <- 0.9	#Størrelse på legendtekst
     pstTxt <- list('Hoved' = paste0(sprintf(paste0('%.', antDes, 'f'), AggVerdier$Hoved), '%'),
                    'Rest' = paste0(sprintf(paste0('%.', antDes, 'f'), AggVerdier$Rest), '%'))

@@ -1,6 +1,6 @@
 Package: rapFigurer
 Title: Figurmaler for Rapporteket
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: 
     person(given = "Lena Ringstad",
            family = "Olsen",
@@ -11,10 +11,10 @@ License: GNU
 Encoding: UTF-8
 LazyData: true
 Suggests: 
-    zoo,
     knitr,
+    qicharts2,
     xtable,
-    kableExtra
+    zoo
 Imports: 
     rapbase (>= 1.8.0),
     rapsodi (>= 0.0.0.9000)

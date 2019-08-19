@@ -1,4 +1,4 @@
-#' Funksjon som angir hvilket format en figur skal lagres i.
+#' Funksjon som angir hvilket format en figur skal lagres i. Inneholder også definisjon av fargepaletter.
 #'
 #' Formatet er spesifisert gjennom endinga til filnavnet
 #' Tillatt: png, pdf, jpg, bmp, tif, svg og ps
