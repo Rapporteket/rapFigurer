@@ -2,7 +2,7 @@
 % Please edit documentation in R/FigFilType.R
 \name{figtype}
 \alias{figtype}
-\title{Funksjon som angir hvilket format en figur skal lagres i.}
+\title{Funksjon som angir hvilket format en figur skal lagres i. Inneholder også definisjon av fargepaletter.}
 \usage{
 figtype(outfile = "", width = 3 * 595, height = 3 * 595, res = 3 *
   72, pointsizePDF = 11, fargepalett = "BlaaOff")

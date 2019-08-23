@@ -48,6 +48,16 @@ FigFordeling <- function(AggVerdier, tittel='mangler tittel', hovedgrTxt='', sml
     #Plottspesifikke parametre:
     cexgr <- 1-ifelse(length(grtxt)>20, 0.25*length(grtxt)/60, 0)
 
+    # funksjon for tekstbryting
+    wrap.it <- function(x, len)
+    {
+      sapply(x, function(y) paste(strwrap(y, len),
+                                  collapse = "\n"),
+             USE.NAMES = FALSE)
+    }
+
+    grtxt <- wrap.it(grtxt, 28)
+
     #Høyde må avhenge av antall grupper
     hoyde <- ifelse(length(AggVerdier$Hoved)>20, 3*800, 3*600)
     FigTypUt <- rapFigurer::figtype(outfile, height=hoyde, fargepalett=fargepalett)
