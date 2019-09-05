@@ -1,4 +1,4 @@
-# rygg
+# Figurmaler for Rapporteket
 
 <!-- badges: start -->
 <!-- badges: end -->
