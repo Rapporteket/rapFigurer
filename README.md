@@ -1,4 +1,4 @@
-# Figurmaler for Rapporteket
+# Figurmaler for Rapporteket <img src="man/figures/logo.svg" align="right" height="150" />
 
 <!-- badges: start -->
 <!-- badges: end -->
