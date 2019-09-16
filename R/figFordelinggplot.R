@@ -50,12 +50,12 @@ figFordelinggplot <- function(AggVerdier, tittel='mangler tittel', hovedgrTxt=''
      txtgb <-  ggplot2::ggplotGrob( ggplot2::ggplot(data = df, ggplot2::aes(x= under_grupper, y = Hoved)) +
                             ggplot2::geom_text(ggplot2::aes(x= under_grupper, y=1.3, label= paste0( signif( (Hoved / N_hoved) * 100, digits = 2), " %" ) ), color = farger[1] ) +
                             ggplot2::geom_text(ggplot2::aes(x= under_grupper, y=0.8, label= paste0( signif( (Rest / N_rest) * 100, digits = 2), " %" ) ), color = farger[3] ) +
-                            ylim(0,2) + ggthemes::theme_void())
+                            ylim(0,2) + ggplot2::theme_void())
 
      }else{
       txtgb <-  ggplot2::ggplotGrob( ggplot2::ggplot(data = df, ggplot2::aes(x = under_grupper, y = Hoved)) +
                           ggplot2::geom_text(ggplot2::aes(x = under_grupper, y = 1, label = as.character( signif( (Hoved / N_hoved) * 100, digits = 2) ) ), color = farger[1] ) +
-                          ylim(0,2) + ggthemes::theme_void())
+                          ylim(0,2) + ggplot2::theme_void())
      }
   }
 
@@ -132,5 +132,8 @@ figFordelinggplot <- function(AggVerdier, tittel='mangler tittel', hovedgrTxt=''
   return (f1 )
 
 }
+
+
+
 
 
