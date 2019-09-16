@@ -2,7 +2,6 @@
 #'
 #'ggplot2 utgaven av figFordeling funksjonen. Denne funksjonen lager et horisontalt eller vertikalt søylediagram som viser andeler (fordeling)
 #' av en gitt variabel, basert på de aggregerte verdier som gis inn til funksjonen.
-
 #'
 #' @param AggVerdier Aggregerte verdier (andeler) som skal visualiseres. Liste med to vektorer Hoved og Rest
 #' @param tittel Figurtittel
@@ -18,19 +17,17 @@
 # #' @param outfile hvordan figuren skal vises: ''-på Skjerm, "filnavn.pdf/png/.." - gir fil av angitt type.
 #'
 #' @return Søylediagram (fordeling).
-
-
+#' @export
 figFordelinggplot <- function(AggVerdier, tittel='mangler tittel', hovedgrTxt='', smltxt='',
                         N, retn = 'H', utvalgTxt='', grtxt , grtxt2="",
                         medSml=0, fargepalett = 'BlaaOff'
                         #outfile='',medKI=0, KImaal = NA, KImaaltxt = '', Ngr, cexgr=1, grTypeTxt='', pstTxt=list(Hoved='', Rest=''),
                         ) {
 
-  #samler dataen til en data frame
+  #samler dataen til en dataramme
   df <- data.frame(AggVerdier,grtxt)
   names(df) <- c("Hoved", "Rest", "under_grupper")
   names(N)  <- c("Hoved","Rest")
-
 
   if (!( grtxt2 == "" ) ){
   df$under_grupper <- paste0(df$under_grupper,"\n",grtxt2) }
@@ -39,10 +36,7 @@ figFordelinggplot <- function(AggVerdier, tittel='mangler tittel', hovedgrTxt=''
 
   N_hoved <- df %>% dplyr::select(Hoved) %>% sum()
   N_rest <-  df %>% dplyr::select(Rest) %>% sum()
-
-
   ymax <- min(1, signif(max(c((df$Hoved/N_hoved)*1.2, (df$Rest/N_rest)*1.2 )), digits = 2) )
-
 
   # text som skal stå under x-aksen hvis søylene er vertikale.
   if (retn == "V"){
@@ -58,7 +52,6 @@ figFordelinggplot <- function(AggVerdier, tittel='mangler tittel', hovedgrTxt=''
                           ylim(0,2) + ggplot2::theme_void())
      }
   }
-
 
   #Hvis for få observasjoner..
   if ((N$Hoved < 5) | (sum(N$Hoved+N$Rest)<11)){
@@ -108,15 +101,12 @@ figFordelinggplot <- function(AggVerdier, tittel='mangler tittel', hovedgrTxt=''
                                           axis.title = ggplot2::element_text(family = "sans", size = 16, face = "plain"),
                                           axis.text = ggplot2::element_text(family = "sans", size = 14)  ) +
       ggplot2::annotate("segment", x = 0.4, xend = 0.4, y = 0, yend = ymax, size = 1, lineend = "square")
-
    }
-
 
   #horisontale søyler.
   if (retn == "H") {
     f1 <- f1 + ggplot2::coord_flip() + ggplot2::theme(plot.margin = ggplot2::margin(r=30),
                                     axis.ticks.y = ggplot2::element_blank() )
-
   } else {
       if(grtxt2 == ""){
           f1 <- f1 + ggplot2::annotation_custom( txtgb, xmin = 0.5, xmax = length( df$Hoved) + 0.5, ymax = -ymax/10, ymin = -ymax/3.2) +
@@ -126,14 +116,7 @@ figFordelinggplot <- function(AggVerdier, tittel='mangler tittel', hovedgrTxt=''
         ggplot2::theme (axis.ticks.x = ggplot2::element_blank(),
              plot.margin =  ggplot2::margin(b = 30))
       }
-
   }
 
   return (f1 )
-
 }
-
-
-
-
-
