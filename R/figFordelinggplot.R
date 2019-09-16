@@ -22,8 +22,8 @@
 
 figFordelinggplot <- function(AggVerdier, tittel='mangler tittel', hovedgrTxt='', smltxt='',
                         N, retn = 'H', utvalgTxt='', grtxt , grtxt2="",
-                        medSml=0, fargepalett='BlaaOff', #outfile=''
-                        #medKI=0, KImaal = NA, KImaaltxt = '', Ngr, cexgr=1, grTypeTxt='', pstTxt=list(Hoved='', Rest=''),
+                        medSml=0, fargepalett = 'BlaaOff'
+                        #outfile='',medKI=0, KImaal = NA, KImaaltxt = '', Ngr, cexgr=1, grTypeTxt='', pstTxt=list(Hoved='', Rest=''),
                         ) {
 
   #samler dataen til en data frame
