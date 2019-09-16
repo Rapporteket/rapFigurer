@@ -2,6 +2,8 @@
 
 export(FigFordeling)
 export(FigTraktplott)
+export(figAndelGrVarggplot)
+export(figFordelinggplot)
 export(figtype)
 importFrom(grDevices,bmp)
 importFrom(grDevices,jpeg)
