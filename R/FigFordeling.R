@@ -9,6 +9,7 @@
 #' @param hovedgrTxt hovedgruppe, eks. hele landet eller UNN, Tromsø
 #' @param smltxt sammenligningstekst, eks. landet forøvrig
 #' @param N Totalt antall. Listevariabel: N$Hoved/Rest - antall i hovedgruppa/sammenligningsgruppa
+#' @param Nfig Totalt antall til visning i tekstetikett. Kan ha ulikt antall når sammensatte variabler.
 #' @param retn V-vertikale søyler. H-horisontale søyler
 #' @param utvalgTxt Tekst over flere linjer som angir hvilket utvalg som er gjort
 #' @param grtxt Tekst som angir navn på hver av gruppene i fordelinga.Vektor med lenge lik antall grupper/søyler
@@ -23,12 +24,12 @@
 #'
 #' @examples Eksempel kommer
 FigFordeling <- function(AggVerdier, tittel='mangler tittel', hovedgrTxt='', smltxt='',
-                         N, retn='H', subtxt='', utvalgTxt='', grtxt, grtxt2='',
+                         N, Nfig=0, retn='H', subtxt='', utvalgTxt='', grtxt, grtxt2='',
                           medSml=0, antDes=1, fargepalett='BlaaOff', outfile=''
                          #medKI=0, KImaal = NA, KImaaltxt = '', Ngr, cexgr=1, grTypeTxt='', pstTxt=list(Hoved='', Rest=''),
 ) {
 
-
+if (Nfig==0) {Nfig <- N}
   #Hvis for få observasjoner..
 
   if ((N$Hoved < 5) | (sum(N$Hoved+N$Rest)<11)){
@@ -99,11 +100,11 @@ FigFordeling <- function(AggVerdier, tittel='mangler tittel', hovedgrTxt='', sml
       if (medSml == 1) {
         pstHS <- paste0(pstTxt$Hoved,'  ', pstTxt$Rest)
         legend(xmax/4, posOver+0.6*posDiff,
-               c(paste0(hovedgrTxt, ' (N=', N$Hoved,')'), paste0(smltxt, ' (N=', N$Rest,')')),
+               c(paste0(hovedgrTxt, ' (N=', Nfig$Hoved,')'), paste0(smltxt, ' (N=', Nfig$Rest,')')),
                border=c(fargeHoved,NA), col=c(fargeHoved,fargeRest), bty='n', pch=c(15,18),
                pt.cex=2, ncol=1) #lwd=lwdRest, lty=NA,
       } else {
-        legend(xmax/4, posOver+0.6*posDiff, paste0(hovedgrTxt, ' (N=', N$Hoved,')'),
+        legend(xmax/4, posOver+0.6*posDiff, paste0(hovedgrTxt, ' (N=', Nfig$Hoved,')'),
                border=NA, fill=fargeHoved, bty='n', ncol=1)
       }
 
@@ -136,11 +137,11 @@ FigFordeling <- function(AggVerdier, tittel='mangler tittel', hovedgrTxt='', sml
               side=1, las=1, cex=0.8*cexgr, adj=0.5, line=2.5, col=graa[2])
         mtext(at=0,  paste0(smltxt,': '), side=1, cex=0.8*cexgr, adj=0.9, line=2.5, col=graa[2])
         points(pos, as.numeric(AggVerdier$Rest), col=fargeRest,  cex=2, pch=18) #c("p","b","o"),
-        legend('top', legend=c(paste0(hovedgrTxt, ' (N=', N$Hoved,')'), paste0(smltxt, ' (N=', N$Rest,')')),
+        legend('top', legend=c(paste0(hovedgrTxt, ' (N=', Nfig$Hoved,')'), paste0(smltxt, ' (N=', Nfig$Rest,')')),
                border=c(fargeHoved,NA), col=c(fargeHoved,fargeRest), bty='n', pch=c(15,18), pt.cex=2,
                ncol=2, cex=cexleg) #, lwd=lwdRest, lty=c(NA,NA),
       } else {
-        legend('top', legend=paste0(hovedgrTxt, ' (N=', N$Hoved,')'),
+        legend('top', legend=paste0(hovedgrTxt, ' (N=', Nfig$Hoved,')'),
                border=NA, fill=fargeHoved, bty='n', ncol=1, cex=cexleg)
       }
     }
