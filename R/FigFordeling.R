@@ -29,9 +29,9 @@ FigFordeling <- function(AggVerdier, tittel='mangler tittel', hovedgrTxt='', sml
                          #medKI=0, KImaal = NA, KImaaltxt = '', Ngr, cexgr=1, grTypeTxt='', pstTxt=list(Hoved='', Rest=''),
 ) {
 
-if (Nfig==0) {Nfig <- N}
-  #Hvis for få observasjoner..
+if (class(Nfig)!='numeric') {Nfig <- N}
 
+    #Hvis for få observasjoner..
   if ((N$Hoved < 5) | (sum(N$Hoved+N$Rest)<11)){
     #-----------Figur---------------------------------------
     FigTypUt <- rapFigurer::figtype(outfile)  #FigTypUt <- figtype(outfile)
