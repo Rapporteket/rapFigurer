@@ -4,8 +4,14 @@
 \alias{figtype}
 \title{Funksjon som angir hvilket format en figur skal lagres i. Inneholder også definisjon av fargepaletter.}
 \usage{
-figtype(outfile = "", width = 3 * 595, height = 3 * 595, res = 3 *
-  72, pointsizePDF = 11, fargepalett = "BlaaOff")
+figtype(
+  outfile = "",
+  width = 3 * 595,
+  height = 3 * 595,
+  res = 3 * 72,
+  pointsizePDF = 11,
+  fargepalett = "BlaaOff"
+)
 }
 \arguments{
 \item{outfile}{Navn på fil som skal skrives til. Tom tekststreng skriver til skjerm}

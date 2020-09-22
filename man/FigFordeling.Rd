@@ -4,10 +4,23 @@
 \alias{FigFordeling}
 \title{Fordelingsfigur}
 \usage{
-FigFordeling(AggVerdier, tittel = "mangler tittel", hovedgrTxt = "",
-  smltxt = "", N, retn = "H", subtxt = "", utvalgTxt = "", grtxt,
-  grtxt2 = "", medSml = 0, antDes = 1, fargepalett = "BlaaOff",
-  outfile = "")
+FigFordeling(
+  AggVerdier,
+  tittel = "mangler tittel",
+  hovedgrTxt = "",
+  smltxt = "",
+  N,
+  Nfig = 0,
+  retn = "H",
+  subtxt = "",
+  utvalgTxt = "",
+  grtxt,
+  grtxt2 = "",
+  medSml = 0,
+  antDes = 1,
+  fargepalett = "BlaaOff",
+  outfile = ""
+)
 }
 \arguments{
 \item{AggVerdier}{Aggregerte verdier (andeler) som skal visualiseres. Liste med to vektorer Hoved og Rest}
@@ -19,6 +32,8 @@ FigFordeling(AggVerdier, tittel = "mangler tittel", hovedgrTxt = "",
 \item{smltxt}{sammenligningstekst, eks. landet forøvrig}
 
 \item{N}{Totalt antall. Listevariabel: N$Hoved/Rest - antall i hovedgruppa/sammenligningsgruppa}
+
+\item{Nfig}{Totalt antall til visning i tekstetikett. Kan ha ulikt antall når sammensatte variabler.}
 
 \item{retn}{V-vertikale søyler. H-horisontale søyler}
 
