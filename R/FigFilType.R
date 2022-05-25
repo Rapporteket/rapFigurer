@@ -25,17 +25,17 @@ figtype <- function(outfile='', width=3*595, height=3*595, res=3*72, pointsizePD
   fonttype <- 'sans'	#windowsFont('Helvetica')
 
   switch(filtype,
-         png = png(filename = outfile, res=res, family=fonttype, width=width, height=height), #pointsize=5),
-         #Helvetica, windowsFont('Helvetica')
+         png = png(filename = outfile, res=res, family=fonttype, width=width, height=height),
          jpg = jpeg(filename = outfile, res=res, width=width, height=height),
-         #		pdf = pdf(file = outfile, width=7*width/555, height=7*height/555, #family='arial',
-         pdf = pdf(file = outfile, width=7, height=7*height/width, family=fonttype, #family='arial',
+         # pdf = pdf(file = outfile, width=7, height=7*height/width, family=fonttype,
+         #           pointsize=pointsizePDF),
+         pdf = cairo_pdf(file = outfile, width=7, height=7*height/width, family=fonttype,
                    pointsize=pointsizePDF),
          bmp = bmp(filename = outfile, res=res, width=width, height=height),
          tif = tiff(filename = outfile, res=res, width=width, height=height),
          wmf = win.metafile(filename = outfile, width = 7, height = 7*height/width,
                             pointsize = pointsizePDF),
-         svg = svg(file = outfile, width=7, height=7*height/width, family=fonttype, #family='arial',
+         svg = svg(file = outfile, width=7, height=7*height/width, family=fonttype,
                    pointsize=pointsizePDF)
   )
 
