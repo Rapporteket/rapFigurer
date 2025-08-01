@@ -22,7 +22,6 @@
 #' @return Søylediagram (fordeling).
 #' @export
 #'
-#' @examples Eksempel kommer
 FigFordeling <- function(AggVerdier, tittel='mangler tittel', hovedgrTxt='', smltxt='',
                          N, Nfig=0, retn='H', subtxt='', utvalgTxt='', grtxt, grtxt2='',
                           medSml=0, antDes=1, fargepalett='BlaaOff', outfile=''

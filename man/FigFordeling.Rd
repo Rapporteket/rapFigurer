@@ -58,6 +58,3 @@ Søylediagram (fordeling).
 Denne funksjonen lager et horisontalt eller vertikalt søylediagram som viser andeler (fordeling)
 av en gitt variabel, basert på de aggregerte verdier som gis inn til funksjonen.
 }
-\examples{
-Eksempel kommer
-}

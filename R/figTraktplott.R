@@ -18,9 +18,6 @@
 #' @return Traktplott med andeler av gitt variabel for hvert sykehus
 #' @export
 #'
-#' @examples
-#' #Not run
-#' #FigTraktplott()
 FigTraktplott <- function(sykehus=DataTraktplott$Sykehus,
                           andel=DataTraktplott$Andel,
                           nevner=DataTraktplott$N,

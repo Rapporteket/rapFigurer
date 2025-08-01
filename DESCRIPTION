@@ -10,15 +10,13 @@ Description: Verktøykasse for figurer til Rapporteket.
 License: GNU
 Encoding: UTF-8
 LazyData: true
+Depends:
+    R (>= 3.5.0)
 Suggests: 
     knitr,
     qicharts2,
     xtable,
     zoo
-Imports: 
-    rapbase (>= 1.8.0),
-    rapsodi (>= 0.0.0.9000)
 Remotes: 
-    Rapporteket/rapbase@*release,
-    Rapporteket/rapsodi
-RoxygenNote: 7.1.0
+    Rapporteket/rapbase@main
+RoxygenNote: 7.3.2
