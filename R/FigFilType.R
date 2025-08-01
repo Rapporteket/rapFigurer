@@ -40,8 +40,8 @@ figtype <- function(
                     pointsize = pointsizePDF),
     bmp = bmp(filename = outfile, res = res, width = width, height = height),
     tif = tiff(filename = outfile, res = res, width = width, height = height),
-    wmf = win.metafile(filename = outfile, width = 7, height = 7 * height / width,
-                       pointsize = pointsizePDF),
+    wmf = grDevices::win.metafile(filename = outfile, width = 7, height = 7 * height / width,
+                                  pointsize = pointsizePDF),
     svg = svg(file = outfile, width = 7, height = 7 * height / width, family = fonttype,
               pointsize = pointsizePDF)
   )
