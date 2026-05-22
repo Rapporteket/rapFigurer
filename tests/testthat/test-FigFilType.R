@@ -133,13 +133,13 @@ describe("figtype", {
 
     it("extracts extension from lowercase filenames", {
       # Testing indirectly through successful file creation
-        outfile <- file.path(tempdir(), "test_fig.png")
+      outfile <- file.path(tempdir(), "test_fig.png")
       expect_silent(figtype(outfile = outfile))
       expect_true(file.exists(outfile))
     })
 
     it("handles 3-character extensions", {
-        outfile <- file.path(tempdir(), "myplot.jpg")
+      outfile <- file.path(tempdir(), "myplot.jpg")
       expect_silent(figtype(outfile = outfile))
     })
 
