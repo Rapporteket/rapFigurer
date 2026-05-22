@@ -15,8 +15,10 @@ Depends:
 Suggests: 
     knitr,
     qicharts2,
+    testthat (>= 3.0.0),
     xtable,
     zoo
 Remotes: 
     Rapporteket/rapbase@main
 RoxygenNote: 7.3.3
+Config/testthat/edition: 3
