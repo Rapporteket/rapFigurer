@@ -121,5 +121,9 @@ describe("figtype", {
       expect_length(result$farger, 5)
     })
 
+    it("returns NULL colors if wrong name", {
+      result <- figtype(outfile = "", fargepalett = "qwerty")
+      expect_null(result$farger)
+    })
   })
 })
