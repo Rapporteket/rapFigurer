@@ -14,6 +14,7 @@
 #' @param midtlinje Legge midtlinja på ønsket verdi
 #' @param maal Mållinje..
 #' @param sort sortering i plottet: andel, nevner(standard)
+#' @param ... Andre argumenter (ikke i bruk i dag)
 #'
 #' @return Traktplott med andeler av gitt variabel for hvert sykehus
 #' @export

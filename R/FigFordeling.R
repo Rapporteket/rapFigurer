@@ -11,6 +11,7 @@
 #' @param N Totalt antall. Listevariabel: N$Hoved/Rest - antall i hovedgruppa/sammenligningsgruppa
 #' @param Nfig Totalt antall til visning i tekstetikett. Kan ha ulikt antall når sammensatte variabler.
 #' @param retn V-vertikale søyler. H-horisontale søyler
+#' @param subtxt evt. undertittel
 #' @param utvalgTxt Tekst over flere linjer som angir hvilket utvalg som er gjort
 #' @param grtxt Tekst som angir navn på hver av gruppene i fordelinga.Vektor med lenge lik antall grupper/søyler
 #' @param grtxt2 Evt. undertekst til hver av gruppene. Vektor med lenge lik antall grupper/søyler
