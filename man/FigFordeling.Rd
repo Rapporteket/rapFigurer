@@ -37,6 +37,8 @@ FigFordeling(
 
 \item{retn}{V-vertikale søyler. H-horisontale søyler}
 
+\item{subtxt}{evt. undertittel}
+
 \item{utvalgTxt}{Tekst over flere linjer som angir hvilket utvalg som er gjort}
 
 \item{grtxt}{Tekst som angir navn på hver av gruppene i fordelinga.Vektor med lenge lik antall grupper/søyler}

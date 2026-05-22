@@ -44,6 +44,8 @@ FigTraktplott(
 \item{maal}{Mållinje..}
 
 \item{sort}{sortering i plottet: andel, nevner(standard)}
+
+\item{...}{Andre argumenter (ikke i bruk i dag)}
 }
 \value{
 Traktplott med andeler av gitt variabel for hvert sykehus
