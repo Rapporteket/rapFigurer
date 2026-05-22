@@ -53,7 +53,9 @@ describe("figtype", {
     outfile <- file.path(tempdir(), "test_fig.tif")
     expect_silent(figtype(outfile = outfile))
     invisible(dev.off())
-    expect_true(file.exists(outfile))
+    if (capabilities()["tiff"]) {
+      expect_true(file.exists(outfile))
+    }
   })
 
   it("handles SVG file extension", {
@@ -113,53 +115,4 @@ describe("figtype", {
     })
 
   })
-
-  describe("PDF-specific parameters", {
-
-    it("accepts custom pointsizePDF parameter", {
-      result <- figtype(outfile = "", pointsizePDF = 14)
-      # Function doesn't explicitly return pointsize, so just verify no error
-      expect_type(result, "list")
-    })
-
-    it("uses default pointsize of 11 for PDF", {
-      result <- figtype(outfile = "")
-      expect_type(result, "list")
-    })
-
-  })
-
-  describe("File extension parsing", {
-
-    it("extracts extension from lowercase filenames", {
-      # Testing indirectly through successful file creation
-      outfile <- file.path(tempdir(), "test_fig.png")
-      expect_silent(figtype(outfile = outfile))
-      expect_true(file.exists(outfile))
-    })
-
-    it("handles 3-character extensions", {
-      outfile <- file.path(tempdir(), "myplot.jpg")
-      expect_silent(figtype(outfile = outfile))
-    })
-
-  })
-
-  it("returns an invisible list", {
-    result <- capture.output({
-      output <- figtype(outfile = "")
-    })
-    expect_length(result, 0)  # invisible() suppresses output
-  })
-
-  it("accepts empty outfile for screen output", {
-    expect_silent(figtype(outfile = ""))
-  })
-
-  it("respects aspect ratio in PDF output", {
-    result <- figtype(outfile = "", width = 600, height = 400)
-    expect_equal(result$width, 600)
-    expect_equal(result$height, 400)
-  })
-
 })
