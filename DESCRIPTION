@@ -7,11 +7,11 @@ Authors@R:
            role = c("aut", "cre"),
            email = "lena.olsen@skde.no")
 Description: Verktøykasse for figurer til Rapporteket.
-License: GNU
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Depends:
-    R (>= 3.5.0)
+    R (>= 4.1.0)
 Suggests: 
     knitr,
     qicharts2,
