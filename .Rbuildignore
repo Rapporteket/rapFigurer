@@ -1,3 +1,7 @@
 ^rapFigurer\.Rproj$
 ^\.Rproj\.user$
 ^data-raw$
+^\.lintr$
+^\.github$
+^renovate.json$
+^dev$
