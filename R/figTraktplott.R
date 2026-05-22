@@ -18,6 +18,7 @@
 #'
 #' @return Traktplott med andeler av gitt variabel for hvert sykehus
 #' @export
+#' @importFrom stats reorder
 #'
 FigTraktplott <- function(sykehus = c('Sykehus A', 'Sykehus B', 'Sykehus C'),
                           andel = c(0.8, 0.9, 0.7),

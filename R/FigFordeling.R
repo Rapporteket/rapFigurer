@@ -19,6 +19,7 @@
 #' @param fargepalett hvilken fargepalett fra "rapfig::figfiltype" som skal benyttes
 #' @param antDes antall desimaler i visning av andel som prosent
 #' @param outfile hvordan figuren skal vises: ''-på Skjerm, "filnavn.pdf/png/.." - gir fil av angitt type.
+#' @importFrom graphics barplot legend mtext par plot.new points strwidth text title
 #'
 #' @return Søylediagram (fordeling).
 #' @export
