@@ -28,6 +28,8 @@ describe("figtype", {
   it("handles PNG file extension", {
     outfile <- file.path(tempdir(), "test_fig.png")
     expect_silent(figtype(outfile = outfile))
+    plot(1:10)
+    invisible(dev.off())
     expect_true(file.exists(outfile))
   })
 
@@ -40,18 +42,23 @@ describe("figtype", {
   it("handles JPG file extension", {
     outfile <- file.path(tempdir(), "test_fig.jpg")
     expect_silent(figtype(outfile = outfile))
+    plot(1:10)
+    invisible(dev.off())
     expect_true(file.exists(outfile))
   })
 
   it("handles BMP file extension", {
     outfile <- file.path(tempdir(), "test_fig.bmp")
     expect_silent(figtype(outfile = outfile))
+    plot(1:10)
+    invisible(dev.off())
     expect_true(file.exists(outfile))
   })
 
   it("handles TIF file extension", {
     outfile <- file.path(tempdir(), "test_fig.tif")
     expect_silent(figtype(outfile = outfile))
+    plot(1:10)
     invisible(dev.off())
     if (capabilities()["tiff"]) {
       expect_true(file.exists(outfile))
