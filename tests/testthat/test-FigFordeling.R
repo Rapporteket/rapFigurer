@@ -126,14 +126,14 @@ test_that("FigFordeling handles Nfig conversion", {
 
 test_that("FigFordeling handles many groups (>20)", {
   # Test with more than 20 groups
-  n_groups <- 25
+  Ngroups <- 25
   AggVerdier <- list(
-    Hoved = rep(50 / n_groups, n_groups),
-    Rest = rep(50 / n_groups, n_groups)
+    Hoved = rep(50 / Ngroups, Ngroups),
+    Rest = rep(50 / Ngroups, Ngroups)
   )
   N <- list(Hoved = 100, Rest = 100)
   Nfig <- list(Hoved = 50, Rest = 60)
-  grtxt <- paste("Gruppe", 1:n_groups)
+  grtxt <- paste("Gruppe", 1:Ngroups)
 
   expect_no_error({
     pdf(tempfile(fileext = ".pdf"))
