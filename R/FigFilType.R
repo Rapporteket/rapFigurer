@@ -24,11 +24,13 @@ figtype <- function(
   fargepalett = 'BlaaOff'
 ) {
 
-  filtype <- substr(outfile, nchar(outfile) - 2, nchar(outfile))
-  if (substr(filtype, 1, 1) == '.') {
-    filtype <- substr(filtype, 2, 3)
-  }
-
+  filtype <- tools::file_ext(outfile) |>
+    switch(
+      "jpeg" = "jpg",
+      "tiff" = "tif",
+      tools::file_ext(outfile)
+    ) |>
+    tolower()
 
   fonttype <- 'sans'
 
