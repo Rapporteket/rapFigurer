@@ -94,37 +94,45 @@ FigAndelPlot <- function(
   builtInTrue <- c("true", "t", "1", "ja", "yes", "y", "sant")
   builtInFalse <- c("false", "f", "0", "nei", "no", "n", "usant")
 
+  # Bygg opp tillatte verdier for TRUE/FALSE (innebygde + evt. brukerdefinerte)
   trueSet <- unique(c(builtInTrue, normalizeValue(trueValues)))
   falseSet <- unique(c(builtInFalse, normalizeValue(falseValues)))
 
-  andelRaw <- data[[andelVariabel]]
-  keepNonMissing <- !is.na(andelRaw)
+  indicatorValuesRaw <- data[[andelVariabel]]
+  hasIndicatorValue <- !is.na(indicatorValuesRaw)
 
-  work <- data[keepNonMissing, , drop = FALSE]
-  andelWork <- andelRaw[keepNonMissing]
-  andelNorm <- normalizeValue(andelWork)
+  # Fjern rader uten verdi i andelsvariabelen
+  filteredData <- data[hasIndicatorValue, , drop = FALSE]
+  indicatorValues <- indicatorValuesRaw[hasIndicatorValue]
+  normalizedIndicatorValues <- normalizeValue(indicatorValues)
 
-  mapped <- rep(NA_character_, length(andelNorm))
-  mapped[andelNorm %in% trueSet] <- "TRUE"
-  mapped[andelNorm %in% falseSet] <- "FALSE"
+  # Map tekstverdier til TRUE/FALSE-etikett
+  # Start med NA, og sett verdi til TRUE/FALSE der teksten matcher definerte sett
+  booleanLabel <- rep(NA_character_, length(normalizedIndicatorValues))
+  booleanLabel[normalizedIndicatorValues %in% trueSet] <- "TRUE"
+  booleanLabel[normalizedIndicatorValues %in% falseSet] <- "FALSE"
 
-  keepMapped <- !is.na(mapped)
-  work <- work[keepMapped, , drop = FALSE]
-  mapped <- mapped[keepMapped]
+  # Behold bare rader som faktisk ble mappet til TRUE/FALSE
+  isMapped <- !is.na(booleanLabel)
+  filteredData <- filteredData[isMapped, , drop = FALSE]
+  booleanLabel <- booleanLabel[isMapped]
 
   if (is.null(gruppeVariabel)) {
-    grupper <- rep(totalLabel, length(mapped))
-    gruppeSourceOrder <- totalLabel
+    # Uten grupperingsvariabel legges alle i total-gruppen
+    groupValues <- rep(totalLabel, length(booleanLabel))
+    groupOrder <- totalLabel
   } else {
-    gruppeRaw <- work[[gruppeVariabel]]
-    keepGroup <- !is.na(gruppeRaw)
-    work <- work[keepGroup, , drop = FALSE]
-    mapped <- mapped[keepGroup]
-    grupper <- as.character(gruppeRaw[keepGroup])
-    gruppeSourceOrder <- unique(grupper)
+    # Med grupperingsvariabel fjernes rader uten gruppeverdi
+    groupValuesRaw <- filteredData[[gruppeVariabel]]
+    hasGroupValue <- !is.na(groupValuesRaw)
+    filteredData <- filteredData[hasGroupValue, , drop = FALSE]
+    booleanLabel <- booleanLabel[hasGroupValue]
+    # Bevar opprinnelig rekkefølge på grupper
+    groupValues <- as.character(groupValuesRaw[hasGroupValue])
+    groupOrder <- unique(groupValues)
   }
 
-  if (length(mapped) == 0) {
+  if (length(booleanLabel) == 0) {
     plotData <- data.frame(
       group = totalLabel,
       n = 0,
@@ -135,12 +143,12 @@ FigAndelPlot <- function(
       stringsAsFactors = FALSE
     )
   } else {
-    nByGroup <- tapply(mapped, grupper, length)
-    nTrueByGroup <- tapply(mapped == "TRUE", grupper, sum)
+    nByGroup <- tapply(booleanLabel, groupValues, length)
+    nTrueByGroup <- tapply(booleanLabel == "TRUE", groupValues, sum)
 
     groupLevels <- names(nByGroup)
     if (!is.null(gruppeVariabel)) {
-      groupLevels <- gruppeSourceOrder[gruppeSourceOrder %in% groupLevels]
+      groupLevels <- groupOrder[groupOrder %in% groupLevels]
     }
 
     groupData <- data.frame(
@@ -150,8 +158,8 @@ FigAndelPlot <- function(
       stringsAsFactors = FALSE
     )
 
-    totalN <- length(mapped)
-    totalNTrue <- sum(mapped == "TRUE")
+    totalN <- length(booleanLabel)
+    totalNTrue <- sum(booleanLabel == "TRUE")
     totalRow <- data.frame(
       group = totalLabel,
       n = as.integer(totalN),
@@ -171,6 +179,7 @@ FigAndelPlot <- function(
     plotData$eligible <- plotData$isTotal | (plotData$n >= terskel & plotData$n > 0)
   }
 
+  # Formater prosent med norsk desimalskilletegn
   formatPctNb <- function(x) {
     paste0(gsub("\\.", ",", sprintf("%.1f", x)), " %")
   }
