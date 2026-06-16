@@ -1,3 +1,6 @@
+#' @importFrom rlang .data
+NULL
+
 #' Horisontalt andelsplott for true/false-variabler
 #'
 #' Lager et horisontalt stolpediagram som viser andel TRUE per gruppe,
