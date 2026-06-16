@@ -20,7 +20,7 @@ test_that("FigAndelPlot removes NA and computes percent true of true+false", {
   # Totalt: TRUE=3, FALSE=3 -> 50
   totalRow <- d[d$group == "Totalt", , drop = FALSE]
   expect_equal(totalRow$n, 6)
-  expect_equal(totalRow$pct_true, 50)
+  expect_equal(totalRow$pctTrue, 50)
 })
 
 test_that("FigAndelPlot keeps total on top and sorts bars low to high", {
@@ -34,9 +34,9 @@ test_that("FigAndelPlot keeps total on top and sorts bars low to high", {
 
   expect_equal(d$group[1], "Totalt")
 
-  bars <- d[!d$is_total & d$eligible, c("group", "pct_true"), drop = FALSE]
+  bars <- d[!d$isTotal & d$eligible, c("group", "pctTrue"), drop = FALSE]
   expect_equal(as.character(bars$group), c("A", "B", "C"))
-  expect_true(all(diff(bars$pct_true) >= 0))
+  expect_true(all(diff(bars$pctTrue) >= 0))
 })
 
 test_that("FigAndelPlot shows below-threshold groups as label-only", {
@@ -52,8 +52,8 @@ test_that("FigAndelPlot shows below-threshold groups as label-only", {
   expect_true(d$eligible[d$group == "A"])
   expect_false(d$eligible[d$group == "B"])
   expect_false(d$eligible[d$group == "C"])
-  expect_true(is.na(d$bar_value[d$group == "B"]))
-  expect_true(is.na(d$bar_value[d$group == "C"]))
+  expect_true(is.na(d$barValue[d$group == "B"]))
+  expect_true(is.na(d$barValue[d$group == "C"]))
 })
 
 test_that("FigAndelPlot uses Norwegian percentage labels with one decimal", {
@@ -66,7 +66,7 @@ test_that("FigAndelPlot uses Norwegian percentage labels with one decimal", {
   d <- p$data
   aRow <- d[d$group == "A", , drop = FALSE]
 
-  expect_equal(aRow$pct_label, "75,0 %")
+  expect_equal(aRow$pctLabel, "75,0 %")
 })
 
 test_that("FigAndelPlot includes n in group label as number only", {
@@ -78,7 +78,7 @@ test_that("FigAndelPlot includes n in group label as number only", {
   p <- FigAndelPlot(df, andelVariabel = "verdi", gruppeVariabel = "gruppe", terskel = 1)
   d <- p$data
 
-  expect_true(any(grepl("A \\(2\\)$", d$group_label)))
+  expect_true(any(grepl("A \\(2\\)$", d$groupLabel)))
   expect_false(any(grepl("n=", d$group_label)))
 })
 
