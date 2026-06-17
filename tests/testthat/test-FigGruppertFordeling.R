@@ -37,8 +37,8 @@ test_that("FigGruppertFordeling supports group variable, recoding and custom leg
   expect_true(all(c("Ja", "Nei") %in% as.character(p$data$kategori)))
   expect_equal(p$labels$fill, "Svar")
 
-  gruppe_levels <- levels(p$data$gruppe)
-  expect_equal(gruppe_levels[length(gruppe_levels)], "Totalt")
+  gruppeLevels <- levels(p$data$gruppe)
+  expect_equal(gruppeLevels[length(gruppeLevels)], "Totalt")
 })
 
 test_that("FigGruppertFordeling sorts numeric-like category and group values", {
