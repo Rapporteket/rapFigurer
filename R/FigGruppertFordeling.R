@@ -1,3 +1,6 @@
+#' @importFrom rlang .data
+NULL
+
 #' Plot Grouped Distribution
 #'
 #' Creates a horizontal stacked bar chart showing the distribution of a categorical
@@ -42,7 +45,7 @@
 #' }
 #'
 #' @export
-plotGruppertFordeling <- function(
+FigGruppertFordeling <- function(
   data,
   gruppeVariabel = NULL,
   kategoriVariabel,
