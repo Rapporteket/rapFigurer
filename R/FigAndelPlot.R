@@ -1,6 +1,3 @@
-#' @importFrom rlang .data
-NULL
-
 #' Horisontalt andelsplott for true/false-variabler
 #'
 #' Lager et horisontalt stolpediagram som viser andel TRUE per gruppe,
@@ -59,34 +56,48 @@ FigAndelPlot <- function(
   breaks = NULL,
   highGood = TRUE
 ) {
+  errorPlot <- function(message) {
+    ggplot2::ggplot() +
+      ggplot2::geom_text(
+        ggplot2::aes(x = 0.5, y = 0.5, label = message),
+        size = 5,
+        vjust = 0.5,
+        hjust = 0.5,
+        color = "#d73027"
+      ) +
+      ggplot2::coord_cartesian(xlim = c(0, 1), ylim = c(0, 1)) +
+      ggplot2::theme_void() +
+      ggplot2::labs(title = "Error")
+  }
+
   if (!is.data.frame(data)) {
-    stop("data must be a data.frame")
+    return(errorPlot("data must be a data.frame"))
   }
 
   if (!is.character(andelVariabel) || length(andelVariabel) != 1 ||
         !andelVariabel %in% names(data)) {
-    stop("andelVariabel must be the name of a column in data")
+    return(errorPlot("andelVariabel must be the name of a column in data"))
   }
 
   if (!is.null(gruppeVariabel) && (!is.character(gruppeVariabel) ||
                                      length(gruppeVariabel) != 1 ||
                                      !gruppeVariabel %in% names(data))) {
-    stop("gruppeVariabel must be NULL or the name of a column in data")
+    return(errorPlot("gruppeVariabel must be NULL or the name of a column in data"))
   }
 
   if (!is.numeric(terskel) || length(terskel) != 1 || is.na(terskel) || terskel < 0) {
-    stop("terskel must be a single non-negative number")
+    return(errorPlot("terskel must be a single non-negative number"))
   }
 
   if (!is.null(breaks)) {
     if (!is.numeric(breaks) || length(breaks) != 2 || any(is.na(breaks))) {
-      stop("breaks must be NULL or exactly two numeric values")
+      return(errorPlot("breaks must be NULL or exactly two numeric values"))
     }
     if (breaks[1] >= breaks[2]) {
-      stop("breaks must be strictly increasing")
+      return(errorPlot("breaks must be strictly increasing"))
     }
     if (breaks[1] < 0 || breaks[2] > 100) {
-      stop("breaks must be within 0 to 100")
+      return(errorPlot("breaks must be within 0 to 100"))
     }
   }
 
@@ -187,7 +198,12 @@ FigAndelPlot <- function(
     paste0(gsub("\\.", ",", sprintf("%.1f", x)), " %")
   }
 
-  plotData$groupLabel <- paste0(plotData$group, " (", plotData$n, ")")
+  shownN <- ifelse(
+    !plotData$isTotal & !plotData$eligible,
+    paste0("<", terskel),
+    as.character(plotData$n)
+  )
+  plotData$groupLabel <- paste0(plotData$group, " (", shownN, ")")
   plotData$barValue <- ifelse(plotData$eligible, plotData$pctTrue, NA_real_)
   plotData$pctLabel <- ifelse(plotData$eligible, formatPctNb(plotData$pctTrue), NA_character_)
 
