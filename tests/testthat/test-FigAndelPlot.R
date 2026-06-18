@@ -421,7 +421,7 @@ test_that("FigAndelPlot with all groups below threshold", {
   # All non-total groups below threshold; only total is eligible
   total <- d[d$isTotal, , drop = FALSE]
   groups <- d[!d$isTotal, , drop = FALSE]
-  
+
   expect_true(total$eligible[1])
   expect_true(all(!groups$eligible))
   expect_true(all(is.na(groups$barValue)))
@@ -453,7 +453,7 @@ test_that("FigAndelPlot with bars but no below-threshold groups", {
   # All groups eligible, reordering happens with nrow(bars) > 0
   groups <- d[!d$isTotal, , drop = FALSE]
   expect_true(all(groups$eligible))
-  
+
   # Verify sorted by pctTrue ascending
   bars <- groups[order(groups$pctTrue), , drop = FALSE]
   expect_true(all(diff(bars$pctTrue) >= 0))
