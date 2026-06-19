@@ -140,14 +140,17 @@ test_that("FigAndelPlot validates breaks", {
 
   p1 <- FigAndelPlot(df, andelVariabel = "verdi", gruppeVariabel = "gruppe", breaks = c(90, 75))
   expect_s3_class(p1, "ggplot")
+  expect_equal(p1@labels$title, "Error")
 
   p2 <- FigAndelPlot(df, andelVariabel = "verdi", gruppeVariabel = "gruppe", breaks = c(70))
   expect_s3_class(p2, "ggplot")
+  expect_equal(p2@labels$title, "Error")
 })
 
 test_that("FigAndelPlot validates data frame input", {
   p <- FigAndelPlot(data = list(a = 1), andelVariabel = "a")
   expect_s3_class(p, "ggplot")
+  expect_equal(p@labels$title, "Error")
 })
 
 test_that("FigAndelPlot validates andelVariabel", {
@@ -165,9 +168,11 @@ test_that("FigAndelPlot validates gruppeVariabel", {
 
   p1 <- FigAndelPlot(data = df, andelVariabel = "x", gruppeVariabel = "missing")
   expect_s3_class(p1, "ggplot")
+  expect_equal(p1@labels$title, "Error")
 
   p2 <- FigAndelPlot(data = df, andelVariabel = "x", gruppeVariabel = c("g", "x"))
   expect_s3_class(p2, "ggplot")
+  expect_equal(p2@labels$title, "Error")
 })
 
 test_that("FigAndelPlot validates terskel", {
@@ -175,15 +180,19 @@ test_that("FigAndelPlot validates terskel", {
 
   p1 <- FigAndelPlot(data = df, andelVariabel = "x", terskel = -1)
   expect_s3_class(p1, "ggplot")
+  expect_equal(p1@labels$title, "Error")
 
   p2 <- FigAndelPlot(data = df, andelVariabel = "x", terskel = NA)
   expect_s3_class(p2, "ggplot")
+  expect_equal(p2@labels$title, "Error")
 
   p3 <- FigAndelPlot(data = df, andelVariabel = "x", terskel = "text")
   expect_s3_class(p3, "ggplot")
+  expect_equal(p3@labels$title, "Error")
 
   p4 <- FigAndelPlot(data = df, andelVariabel = "x", terskel = c(1, 2))
   expect_s3_class(p4, "ggplot")
+  expect_equal(p4@labels$title, "Error")
 })
 
 test_that("FigAndelPlot validates breaks values within range", {
@@ -191,15 +200,19 @@ test_that("FigAndelPlot validates breaks values within range", {
 
   p1 <- FigAndelPlot(data = df, andelVariabel = "x", breaks = c(-10, 50))
   expect_s3_class(p1, "ggplot")
+  expect_equal(p1@labels$title, "Error")
 
   p2 <- FigAndelPlot(data = df, andelVariabel = "x", breaks = c(50, 110))
   expect_s3_class(p2, "ggplot")
+  expect_equal(p2@labels$title, "Error")
 
   p3 <- FigAndelPlot(data = df, andelVariabel = "x", breaks = c(50, NA))
   expect_s3_class(p3, "ggplot")
+  expect_equal(p3@labels$title, "Error")
 
   p4 <- FigAndelPlot(data = df, andelVariabel = "x", breaks = c("50", "75"))
   expect_s3_class(p4, "ggplot")
+  expect_equal(p4@labels$title, "Error")
 })
 
 test_that("FigAndelPlot works without gruppeVariabel (total only)", {
@@ -266,8 +279,8 @@ test_that("FigAndelPlot handles group NA values", {
 
 test_that("FigAndelPlot sorts bars by pctTrue ascending", {
   df <- data.frame(
-    gruppe = c("Z", "Z", "A", "A", "B", "B"),
-    verdi = c(TRUE, FALSE, TRUE, TRUE, FALSE, FALSE)
+    gruppe = c("Z", "Z", "Z", "A", "A", "B", "B"),
+    verdi = c(TRUE, FALSE, FALSE, TRUE, TRUE, FALSE, FALSE)
   )
 
   p <- FigAndelPlot(data = df, andelVariabel = "verdi", gruppeVariabel = "gruppe", terskel = 1)
