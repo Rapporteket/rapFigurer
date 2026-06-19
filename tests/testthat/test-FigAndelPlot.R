@@ -300,7 +300,7 @@ test_that("FigAndelPlot handles all TRUE (100%)", {
   p <- FigAndelPlot(data = df, andelVariabel = "verdi", gruppeVariabel = "gruppe")
   d <- p$data
 
-  expect_true(all(d$pctTrue == 100 | is.na(d$pctTrue)))
+  expect_true(all(d$pctTrue == 100))
 })
 
 test_that("FigAndelPlot handles all FALSE (0%)", {
@@ -312,7 +312,7 @@ test_that("FigAndelPlot handles all FALSE (0%)", {
   p <- FigAndelPlot(data = df, andelVariabel = "verdi", gruppeVariabel = "gruppe")
   d <- p$data
 
-  expect_true(all(d$pctTrue == 0 | is.na(d$pctTrue)))
+  expect_true(all(d$pctTrue == 0))
 })
 
 test_that("FigAndelPlot handles breaks with highGood = FALSE", {
