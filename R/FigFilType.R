@@ -38,8 +38,18 @@ figtype <- function(
     filtype,
     png = png(filename = outfile, res = res, family = fonttype, width = width, height = height),
     jpg = jpeg(filename = outfile, res = res, width = width, height = height),
-    pdf = cairo_pdf(filename = outfile, width = 7, height = 7 * height / width, family = fonttype,
-                    pointsize = pointsizePDF),
+    pdf = {
+      if (capabilities()["cairo"]) {
+        cairo_pdf(
+          filename = outfile, width = 7, height = 7 * height / width, family = fonttype,
+          pointsize = pointsizePDF
+        )
+      } else {
+        pdf(file = outfile, width = 7, height = 7 * height / width, family = fonttype,
+          pointsize = pointsizePDF
+        )
+      }
+    },
     bmp = bmp(filename = outfile, res = res, width = width, height = height),
     tif = tiff(filename = outfile, res = res, width = width, height = height),
     wmf = grDevices::win.metafile(filename = outfile, width = 7, height = 7 * height / width,
