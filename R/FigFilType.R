@@ -12,7 +12,7 @@
 #' @param fargepalett Hvilken fargepalett skal brukes
 #' @return UtFigFil List med en del figurparametre
 #' @keywords rapporteket norgast
-#' @importFrom grDevices bmp jpeg cairo_pdf png rgb tiff svg dev.off
+#' @importFrom grDevices bmp jpeg cairo_pdf pdf png rgb tiff svg dev.off
 #' @export
 
 figtype <- function(
