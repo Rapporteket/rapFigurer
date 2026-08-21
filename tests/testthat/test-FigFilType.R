@@ -127,3 +127,27 @@ describe("figtype", {
     })
   })
 })
+
+test_that("figtype uses cairo_pdf when cairo is available", {
+  with_mocked_bindings(
+    hasCairo = function() TRUE,
+    pdf = function(...) stop("pdf should not be called"),
+    {
+      outfile <- file.path(tempdir(), "test_fig.pdf")
+      expect_silent(figtype(outfile = outfile))
+      expect_true(file.exists(outfile))
+    }
+  )
+})
+
+test_that("figtype uses pdf when cairo is not available", {
+  with_mocked_bindings(
+    hasCairo = function() FALSE,
+    cairo_pdf = function(...) stop("cairo_pdf should not be called"),
+    {
+      outfile <- file.path(tempdir(), "test_fig.pdf")
+      expect_silent(figtype(outfile = outfile))
+      expect_true(file.exists(outfile))
+    }
+  )
+})

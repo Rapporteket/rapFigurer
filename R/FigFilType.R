@@ -39,7 +39,7 @@ figtype <- function(
     png = png(filename = outfile, res = res, family = fonttype, width = width, height = height),
     jpg = jpeg(filename = outfile, res = res, width = width, height = height),
     pdf = {
-      if (capabilities()["cairo"]) {
+      if (hasCairo()) {
         cairo_pdf(
           filename = outfile, width = 7, height = 7 * height / width, family = fonttype,
           pointsize = pointsizePDF
@@ -87,4 +87,13 @@ figtype <- function(
   UtFigFil <- list(res, width, height, UtFarger)
   names(UtFigFil) <- c('res', 'width', 'height', 'farger')
   return(invisible(UtFigFil))
+}
+
+#' Check if Cairo is working
+#'
+#' @return true or false
+#'
+#' @keywords internal
+hasCairo <- function() {
+  capabilities()["cairo"]
 }
