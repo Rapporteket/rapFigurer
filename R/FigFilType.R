@@ -12,7 +12,7 @@
 #' @param fargepalett Hvilken fargepalett skal brukes
 #' @return UtFigFil List med en del figurparametre
 #' @keywords rapporteket norgast
-#' @importFrom grDevices bmp jpeg cairo_pdf png rgb tiff svg dev.off
+#' @importFrom grDevices bmp jpeg cairo_pdf pdf png rgb tiff svg dev.off
 #' @export
 
 figtype <- function(
@@ -38,8 +38,18 @@ figtype <- function(
     filtype,
     png = png(filename = outfile, res = res, family = fonttype, width = width, height = height),
     jpg = jpeg(filename = outfile, res = res, width = width, height = height),
-    pdf = cairo_pdf(filename = outfile, width = 7, height = 7 * height / width, family = fonttype,
-                    pointsize = pointsizePDF),
+    pdf = {
+      if (hasCairo()) {
+        cairo_pdf(
+          filename = outfile, width = 7, height = 7 * height / width, family = fonttype,
+          pointsize = pointsizePDF
+        )
+      } else {
+        pdf(file = outfile, width = 7, height = 7 * height / width, family = fonttype,
+          pointsize = pointsizePDF
+        )
+      }
+    },
     bmp = bmp(filename = outfile, res = res, width = width, height = height),
     tif = tiff(filename = outfile, res = res, width = width, height = height),
     wmf = grDevices::win.metafile(filename = outfile, width = 7, height = 7 * height / width,
@@ -77,4 +87,13 @@ figtype <- function(
   UtFigFil <- list(res, width, height, UtFarger)
   names(UtFigFil) <- c('res', 'width', 'height', 'farger')
   return(invisible(UtFigFil))
+}
+
+#' Check if Cairo is working
+#'
+#' @return true or false
+#'
+#' @keywords internal
+hasCairo <- function() {
+  capabilities()["cairo"]
 }
