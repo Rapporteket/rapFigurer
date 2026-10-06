@@ -67,7 +67,7 @@ plotIndikator <- function(
     )
 
   dotData <- indikatorData |>
-    dplyr::filter(.data$aar %in% compareYears) |>
+    dplyr::filter(.data$aar %in% compareYears, .data$nevner >= terskel) |>
     dplyr::semi_join(
       plotData |>
         dplyr::filter(.data$overTerskel) |>
