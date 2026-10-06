@@ -6,16 +6,20 @@
 \usage{
 plotIndikator(
   indikatorData,
+  title = NULL,
+  shortDescription = NULL,
   showYear = lubridate::year(Sys.Date()),
   terskel = 10,
-  maalretn = "høy",
-  kvalIndBreaks = NULL,
+  levelDirection = 1,
+  kvalIndgrenser = NULL,
   labelAtBase = TRUE,
   showNlabel = TRUE
 )
 }
 \arguments{
-\item{indikatorData}{Dataframe med kolonnene: aar, sykehusnavn, teller, nevner}
+\item{indikatorData}{Dataframe om skal være på
+samme form som de dataene som brukes hos behandlingskvalitet.
+Kolonnene som må være med er: "year", "orgnr", "var", "denominator".}
 
 \item{showYear}{Årstall som skal vises i plottet. Default
 er inneværende år.}

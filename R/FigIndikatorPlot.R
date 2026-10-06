@@ -1,6 +1,8 @@
 #' Plot indikator
 #'
-#' @param indikatorData Dataframe med kolonnene: aar, sykehusnavn, teller, nevner
+#' @param indikatorData Dataframe om skal være på
+#' samme form som de dataene som brukes hos behandlingskvalitet.
+#' Kolonnene som må være med er: "year", "orgnr", "var", "denominator".
 #' @param showYear Årstall som skal vises i plottet. Default
 #'  er inneværende år.
 #' @param terskel Minimum antall observasjoner for å inkludere sykehus i plottet. Default er 10.
@@ -11,54 +13,34 @@
 
 plotIndikator <- function(
   indikatorData,
+  title = NULL,
+  shortDescription = NULL,
   showYear = lubridate::year(Sys.Date()),
   terskel = 10,
-  maalretn = "høy",
-  kvalIndBreaks = NULL,
+  levelDirection = 1,
+  kvalIndgrenser = NULL,
   labelAtBase = TRUE,
   showNlabel = TRUE
 ) {
   compareYears <- c(showYear - 1, showYear - 2)
 
-  sykehusData <- indikatorData |>
-    dplyr::group_by(.data$aar, .data$sykehusnavn) |>
-    dplyr::summarise(
-      teller = sum(.data$teller, na.rm = TRUE),
-      nevner = sum(.data$nevner, na.rm = TRUE),
-      .groups = "drop"
-    ) |>
+  indikatorData <- indikatorData |>
     dplyr::mutate(
-      prosent = .data$teller / .data$nevner,
-      type = "Sykehus"
+      aar = as.integer(.data$year),
+      sykehusnavn = as.character(.data$orgnr),
+      teller = as.numeric(.data$var) * as.numeric(.data$denominator),
+      nevner = as.numeric(.data$denominator),
+      prosent = .data$var
     )
 
-  nasjonalData <- indikatorData |>
-    dplyr::group_by(.data$aar) |>
-    dplyr::summarise(
-      sykehusnavn = "Nasjonalt",
-      teller = sum(.data$teller, na.rm = TRUE),
-      nevner = sum(.data$nevner, na.rm = TRUE),
-      prosent = .data$teller / .data$nevner,
-      .groups = "drop"
-    ) |>
-    dplyr::filter(.data$nevner >= terskel) |>
-    dplyr::mutate(
-      type = "Nasjonalt"
-    )
 
-  allYearsData <- dplyr::bind_rows(sykehusData, nasjonalData) |>
-    dplyr::mutate(
-      sykehusnavn = dplyr::if_else(.data$type == "Nasjonalt", "Nasjonalt", .data$sykehusnavn)
-    )
-  maksAndel <- min(max(allYearsData$prosent, na.rm = TRUE) * 1.15, 100)
+  maksAndel <- min(max(indikatorData$prosent, na.rm = TRUE) * 1.15, 100)
   prettyVals <- pretty(c(0, maksAndel), n = 5)
 
-  plotData <- allYearsData |>
+  plotData <- indikatorData |>
     dplyr::filter(.data$aar == showYear) |>
     dplyr::mutate(
-      overTerskel = .data$nevner >= terskel
-    ) |>
-    dplyr::mutate(
+      overTerskel = .data$nevner >= terskel,
       prosentBar = dplyr::if_else(.data$overTerskel, .data$prosent, 0),
       prosentLabel = dplyr::if_else(.data$overTerskel, scales::percent(.data$prosent, accuracy = 0.1), "")
     )
@@ -84,7 +66,7 @@ plotIndikator <- function(
       )
     )
 
-  dotData <- allYearsData |>
+  dotData <- indikatorData |>
     dplyr::filter(.data$aar %in% compareYears) |>
     dplyr::semi_join(
       plotData |>
@@ -106,23 +88,21 @@ plotIndikator <- function(
     maxProsent <- 1
   }
 
-  if (!is.null(kvalIndBreaks)) {
-    # Farger og legend for kvalitetsindikatorer
-    kvalIndLegend <- switch(maalretn,
-      "høy" = c("Lav", "Middels", "Høy"),
-      "lav" = c("Høy", "Middels", "Lav")
-    )
-    kvalIndFarger <- switch(maalretn,
-      "lav" = c("#3baa34", "#fd9c00", "#e30713"),
-      "høy" = c("#e30713", "#fd9c00", "#3baa34")
-    )
-
-    kvalIndBreaks <- sort(as.numeric(kvalIndBreaks))
-    if (max(kvalIndBreaks, na.rm = TRUE) > 1) {
-      kvalIndBreaks <- kvalIndBreaks / 100
+  if (!is.null(kvalIndgrenser)) {
+    if (as.integer(levelDirection) == 1) {
+      kvalIndLegend <- c("Lav", "Middels", "Høy")
+      kvalIndFarger <- c("#e30713", "#fd9c00", "#3baa34")
+    } else {
+      kvalIndLegend <- c("Høy", "Middels", "Lav")
+      kvalIndFarger <- c("#3baa34", "#fd9c00", "#e30713")
     }
 
-    kvalBreaks <- c(0, kvalIndBreaks, 1)
+    kvalIndgrenser <- sort(as.numeric(kvalIndgrenser))
+    if (max(kvalIndgrenser, na.rm = TRUE) > 1) {
+      kvalIndgrenser <- kvalIndgrenser / 100
+    }
+
+    kvalBreaks <- c(0, kvalIndgrenser, 1)
     indikatorBand <- data.frame(
       xmin = kvalBreaks[-length(kvalBreaks)],
       xmax = kvalBreaks[-1],
@@ -142,9 +122,9 @@ plotIndikator <- function(
   p <- ggplot2::ggplot(plotData, ggplot2::aes(
     x = .data$prosentBar,
     y = .data$sykehusnavn_display,
-    fill = .data$type
+    fill = "Sykehus"
   ))
-  if (!is.null(kvalIndBreaks)) {
+  if (!is.null(kvalIndgrenser)) {
     p <- p + ggplot2::geom_rect(
       data = indikatorBand,
       ggplot2::aes(
@@ -190,8 +170,7 @@ plotIndikator <- function(
 
     ggplot2::scale_fill_manual(
       values = c(
-        "Sykehus" = "#2171b5",
-        "Nasjonalt" = "#084594"
+        "Sykehus" = "#2171b5"
       ),
       guide = "none"
     ) +
@@ -208,7 +187,8 @@ plotIndikator <- function(
       )
     ) +
     ggplot2::labs(
-      title = paste("Indikator", showYear),
+      title = title,
+      subtitle = shortDescription,
       x = "Prosent",
       y = NULL,
       fill = NULL,
@@ -225,7 +205,9 @@ plotIndikator <- function(
       legend.position = "top",
       legend.justification = "center",
       axis.text.x = ggplot2::element_text(size = 14),
-      axis.text.y = ggplot2::element_text(size = 12)
+      axis.text.y = ggplot2::element_text(size = 12),
+      plot.title = ggplot2::element_text(size = 16, face = "bold"),
+      plot.subtitle = ggplot2::element_text(size = 14)
     )
 
   p
