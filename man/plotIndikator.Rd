@@ -17,16 +17,29 @@ plotIndikator(
 )
 }
 \arguments{
-\item{indikatorData}{Dataframe om skal være på
-samme form som de dataene som brukes hos behandlingskvalitet.
-Kolonnene som må være med er: "year", "orgnr", "var", "denominator".}
+\item{indikatorData}{Dataframe i samme form som dataene som brukes i
+SKDE-indikatorer. Kolonnene som må være med er: "year", "orgnr", "var",
+"denominator".}
 
-\item{showYear}{Årstall som skal vises i plottet. Default
-er inneværende år.}
+\item{title}{Valfri titel på plottet.}
 
-\item{terskel}{Minimum antall observasjoner for å inkludere sykehus i plottet. Default er 10.}
+\item{shortDescription}{Kort undertittel for plottet.}
 
-\item{maalretn}{Målretning for indikatoren. Kan være "lav" eller "høy". Default er "lav".}
+\item{showYear}{Årstall som skal vises i plottet. Default er inneværende år.}
+
+\item{terskel}{Minimum antall observasjoner for å inkludere sykehus i plottet.
+Default er 10.}
+
+\item{levelDirection}{Retning for kvalitetsindikatoren. 1 betyr høyere verdi er
+bedre, 0 betyr lavere verdi er bedre.}
+
+\item{kvalIndgrenser}{Valgfrie kvalitetsgrenser som angir nivåer for bakgrunnsmarkering.}
+
+\item{labelAtBase}{Logisk verdi som avgjør om etikettene for de aktuelle sykehusene
+skal plasseres ved x=0 eller ved hver stolpe.}
+
+\item{showNlabel}{Logisk verdi som avgjør om sykehusetikettene skal inkludere antall
+observasjoner (N=...) eller bare sykehusnavn.}
 }
 \value{
 ggplot-objekt

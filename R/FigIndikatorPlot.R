@@ -1,12 +1,20 @@
 #' Plot indikator
 #'
-#' @param indikatorData Dataframe om skal være på
-#' samme form som de dataene som brukes hos behandlingskvalitet.
-#' Kolonnene som må være med er: "year", "orgnr", "var", "denominator".
-#' @param showYear Årstall som skal vises i plottet. Default
-#'  er inneværende år.
-#' @param terskel Minimum antall observasjoner for å inkludere sykehus i plottet. Default er 10.
-#' @param maalretn Målretning for indikatoren. Kan være "lav" eller "høy". Default er "lav".
+#' @param indikatorData Dataframe i samme form som dataene som brukes i
+#' SKDE-indikatorer. Kolonnene som må være med er: "year", "orgnr", "var",
+#' "denominator".
+#' @param title Valfri titel på plottet.
+#' @param shortDescription Kort undertittel for plottet.
+#' @param showYear Årstall som skal vises i plottet. Default er inneværende år.
+#' @param terskel Minimum antall observasjoner for å inkludere sykehus i plottet.
+#' Default er 10.
+#' @param levelDirection Retning for kvalitetsindikatoren. 1 betyr høyere verdi er
+#' bedre, 0 betyr lavere verdi er bedre.
+#' @param kvalIndgrenser Valgfrie kvalitetsgrenser som angir nivåer for bakgrunnsmarkering.
+#' @param labelAtBase Logisk verdi som avgjør om etikettene for de aktuelle sykehusene
+#' skal plasseres ved x=0 eller ved hver stolpe.
+#' @param showNlabel Logisk verdi som avgjør om sykehusetikettene skal inkludere antall
+#' observasjoner (N=...) eller bare sykehusnavn.
 #' @return ggplot-objekt
 #' @export
 
