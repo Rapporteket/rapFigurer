@@ -11,7 +11,13 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Depends:
-    R (>= 4.1.0)
+    R (>= 4.1.0),
+Imports:
+    lubridate,
+    dplyr,
+    ggplot2,
+    scales,
+    rlang
 Suggests: 
     knitr,
     qicharts2,
@@ -20,5 +26,5 @@ Suggests:
     zoo
 Remotes: 
     Rapporteket/rapbase@main
-RoxygenNote: 7.3.3
 Config/testthat/edition: 3
+Config/roxygen2/version: 8.1.0
