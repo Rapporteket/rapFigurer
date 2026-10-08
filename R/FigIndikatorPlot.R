@@ -1,7 +1,7 @@
 #' Plot indikator
 #'
 #' @param indikatorData Dataframe i samme form som dataene som brukes i
-#' SKDE-indikatorer. Kolonnene som må være med er: "year", "orgnr", "var",
+#' SKDE-indikatorer. Kolonnene som må være med er: "year", "unitName", "var",
 #' "denominator".
 #' @param title Valfri titel på plottet.
 #' @param shortDescription Kort undertittel for plottet.
@@ -35,7 +35,7 @@ plotIndikator <- function(
   indikatorData <- indikatorData |>
     dplyr::mutate(
       aar = as.integer(.data$year),
-      sykehusnavn = as.character(.data$orgnr),
+      sykehusnavn = as.character(.data$unitName),
       teller = as.numeric(.data$var) * as.numeric(.data$denominator),
       nevner = as.numeric(.data$denominator),
       prosent = .data$var
