@@ -18,7 +18,7 @@ plotIndikator(
 }
 \arguments{
 \item{indikatorData}{Dataframe i samme form som dataene som brukes i
-SKDE-indikatorer. Kolonnene som må være med er: "year", "orgnr", "var",
+SKDE-indikatorer. Kolonnene som må være med er: "year", "unitName", "var",
 "denominator".}
 
 \item{title}{Valfri titel på plottet.}
